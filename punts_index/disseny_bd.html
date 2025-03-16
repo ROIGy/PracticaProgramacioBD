@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../estils.css">
+    <title>Índex</title>
+</head>
+
+<body>
+    <nav id="barra_menu">
+        <a href="../pagPrincipal.html">
+            <img src="../Imgs/Imgs_mainpage/Watch4xmaS_no_bg_escapçat.png" alt="Watch4xmaS_no_bg" class="logo">
+        </a>
+        <ul class="links">
+            <li><a href="../punts_index/disseny_bd.html">Disseny de la BD</a></li>
+            <li><a href="../punts_index/uml.html">UML - Diagrama de classes</a></li>
+            <li><a href="../punts_index/manual_d'us.html">Manual d'ús de l'aplicació</a></li>
+        </ul>
+    </nav>
+    <h1>Disseny de la Base de dades</h1>
+
+    <h2 id="disseny_conceptual">1. Disseny Conceptual</h2>
+    <img src="../punts_index/imgs_BD/disseny_concep.png" alt="img_disseny_concep" height="1140">
+
+    <h2 id="disseny_logic-rel">2. Disseny Lògic-relacional</h2>
+    <p class="interlineat-ampliat">PERSONA (IdPersona, nom, cognom, adreça, doc_id, data_naix, tlf, email) <br>
+
+        CLIENT (IdClient, data_registre, tipus_client, targeta_credit) <br>
+
+        EMPLEAT (IdEmpleat, lloc_feina, data_contrac, salari_brut, estat_laboral) <br>
+
+        TASCA (IdTasca, descripcio, data_creacio, data_execucio, estat) <br>
+
+        RESERVA (IdReserva, data_reserva, data_inici, data_fi, tipus_reserva, tipus_IVA, preu_total, IdHabitacio,
+        IdClient) <br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;On (IdHabitacio) és la clau forana que fa referència a la taula HABITACIÓ (IdHabitacio)
+        <br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;On (IdClient) és la clau forana que fa referència a la taula CLIENT (IdClient) <br>
+
+        FACTURA (IdFactura, data_emissio, metode_pagament, base_imposable, IVA, total, IdReserva) <br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;On (IdReserva) és la clau forana que fa referència a la taula RESERVA (IdReserva) <br>
+
+        HABITACIÓ (IdHabitacio, num_habitacio, tipus, capacitat, preu_nitAD, preu_nitMP, estat, descripcio) <br>
+
+        REALITZA (IdEmpleat, IdTasca) <br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;On (IdEmpleat) és la clau forana que fa referència a la taula EMPLEAT (IdEmpleat) <br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;On (IdTasca) és la clau forana que fa referència a la taula TASCA (IdTasca)
+    </p>
+
+    <h2 id="disseny_fisic">3. Disseny físic: Script DDL SQL i SQL per fer les proves (inserts)</h2>
+    <h3>Taula PERSONA</h3>
+    <pre class="font-codi">
+    CREATE TABLE PERSONA ( 
+        IdPersona INT AUTO_INCREMENT PRIMARY KEY, 
+        nom VARCHAR(50), 
+        cognom VARCHAR(50),
+        adreça VARCHAR(100),
+        doc_id VARCHAR(10),
+        data_naix DATE, 
+        tlf VARCHAR(15),
+        email VARCHAR(50)
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO persona (IdPersona, nom, cognom, adreça, nif, data_naix, tlf, email) 
+    VALUES  
+    (1, 'Marc', 'Soler', 'C/ Gran Via, 12, BCN', '12345678X', '1985-06-15', '612345678', 'marc.soler@email.com'),  
+    (2, 'Anna', 'Puig', 'Av. Diagonal, 44, BCN', '87654321Y', '1992-03-22', '698765432', 'anna.puig@email.com'),  
+    (3, 'Joan', 'Vila', 'C/ Balmes, 99, BCN', '11223344Z', '1978-11-30', '634567890', 'joan.vila@email.com'), 
+    (4, 'Laura', 'González', 'C/ Pau Casals, 15, BCN', '22334455A', '1990-08-10', '667788990', 'laura.gonzalez@email.com'),
+    (5, 'David', 'Martínez', 'C/ de Sants, 80, BCN', '33445566B', '1983-11-25', '679123456', 'david.martinez@email.com'),
+    (6, 'Sofia', 'Ramírez', 'C/ del Mar, 22, BCN', '44556677C', '1995-05-30', '688234567', 'sofia.ramirez@email.com');
+</pre>
+
+    <h3>Taula CLIENT</h3>
+    <pre class="font-codi">
+    CREATE TABLE CLIENT ( 
+        IdClient INT AUTO_INCREMENT PRIMARY KEY, 
+        data_registre DATE, 
+        tipus_client VARCHAR(50), 
+        targeta_credit VARCHAR(19), 
+        FOREIGN KEY (IdClient) REFERENCES PERSONA(IdPersona) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO client (IdClient, data_registre, tipus_client, targeta_credit)  
+    VALUES  
+    (3, '2023-12-01', 'Bàsic', '1234-5678-9101-1121'),  
+    (4, '2022-08-15', 'Premium', '2345-6789-1011-2132'),  
+    (5, '2024-02-20', 'Estàndard', '3456-7890-1121-3143');
+</pre>
+
+    <h3>Taula EMPLEAT</h3>
+    <pre class="font-codi">
+    CREATE TABLE EMPLEAT ( 
+        IdEmpleat INT AUTO_INCREMENT PRIMARY KEY, 
+        lloc_feina VARCHAR(50), 
+        data_contrac DATE, 
+        salari_brut DECIMAL(10, 2), 
+        estat_laboral VARCHAR(10), 
+        FOREIGN KEY (IdEmpleat) REFERENCES PERSONA(IdPersona) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO empleat (IdEmpleat, lloc_feina, data_contrac, salari_brut, estat_laboral)  
+    VALUES 
+    (1, 'Recepcionista', '2021-10-20', 26000.00, 'Actiu'),  
+    (2, 'Cambrer', '2019-11-05', 23000.00, 'Actiu'),  
+    (6, 'Neteja', '2020-02-18', 21000.00, 'Actiu');
+</pre>
+
+    <h3>Taula TASCA</h3>
+    <pre class="font-codi">
+    CREATE TABLE TASCA ( 
+        IdTasca INT AUTO_INCREMENT PRIMARY KEY, 
+        descripcio VARCHAR(255), 
+        data_creacio DATE, 
+        data_execucio DATE, 
+        estat_tasca VARCHAR(50) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO tasca (IdTasca, descripcio, data_creacio, data_execucio, estat_tasca)  
+    VALUES  
+    (1, 'Canviar brosses habitacions', '2024-05-01', '2024-05-05', 'pendent'),  
+    (2, 'Netejar habitacions', '2024-06-01', '2024-06-05', 'acabada'),  
+    (3, 'Canviar les tovalloles de les dutxes', '2024-07-01', '2024-07-05', 'pendent');
+</pre>
+
+    <h3>Taula RESERVA</h3>
+    <pre class="font-codi">
+    CREATE TABLE RESERVA ( 
+        IdReserva INT AUTO_INCREMENT PRIMARY KEY, 
+        data_reserva DATE, 
+        data_inici DATE, 
+        data_fi DATE, 
+        tipus_reserva VARCHAR(50), 
+        tipus_IVA DECIMAL(4, 2), 
+        preu_total DECIMAL(10, 2), 
+        IdHabitacio INT, 
+        IdClient INT, 
+        FOREIGN KEY (IdClient) REFERENCES CLIENT(IdClient) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO reserva (IdReserva, data_reserva, data_inici, data_fi, tipus_reserva, tipus_IVA, preu_total, IdHabitacio, IdClient)  
+    VALUES  
+    (304, '2024-03-15', '2024-04-15', '2024-04-20', 'Individual', 10.00, 800.00, 404, 3),  
+    (305, '2024-04-01', '2024-05-01', '2024-05-07', 'Doble', 21.00, 1300.00, 405, 5),  
+    (306, '2024-05-10', '2024-06-10', '2024-06-17', 'Suite', 21.00, 3200.00, 406, 4);
+</pre>
+
+    <h3>Taula FACTURA</h3>
+    <pre class="font-codi">
+    CREATE TABLE FACTURA ( 
+        IdFactura INT AUTO_INCREMENT PRIMARY KEY, 
+        data_emissio DATE, 
+        metode_pagament VARCHAR(50), 
+        base_imposable DECIMAL(10, 2), 
+        IVA DECIMAL(4, 2), 
+        total DECIMAL(10, 2), 
+        IdReserva INT, 
+        FOREIGN KEY (IdReserva) REFERENCES RESERVA(IdReserva) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO factura (IdFactura, data_emissio, metode_pagament, base_imposable, IVA, total, IdReserva)  
+    VALUES  
+    (101, '2024-08-01', 'Targeta de crèdit', 1000.00, 21.00, 1210.00, 306),  
+    (102, '2024-09-01', 'Efectiu', 2000.00, 10.00, 2200.00, 304),  
+    (103, '2024-10-01', 'Transferència', 1500.00, 21.00, 1815.00, 305);
+</pre>
+
+    <h3>Taula HABITACIÓ</h3>
+    <pre class="font-codi">
+    CREATE TABLE HABITACIO ( 
+        IdHabitacio INT AUTO_INCREMENT PRIMARY KEY, 
+        num_habitacio INT, 
+        tipus_habitacio VARCHAR(50), 
+        capacitat INT, 
+        preu_nitAD DECIMAL(10, 2), 
+        preu_nitMP DECIMAL(10, 2), 
+        estat_habitacio VARCHAR(50), 
+        descripcio VARCHAR(255) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO habitacio (IdHabitacio, num_habitacio, tipus_habitacio, capacitat, preu_nitAD, preu_nitMP, estat_habitacio, descripcio)  
+    VALUES  
+    (401, 101, 'Individual', 1, 70.00, 100.00, 'Lliure', 'Habitació individual acollidora i molt pràctica'),  
+    (402, 102, 'Doble', 2, 120.00, 150.00, 'Ocupada', 'Habitació per 2 persones, gran i espaiosa'),  
+    (403, 103, 'Suite', 3, 300.00, 350.00, 'Lliure', 'Suite ideal per a parelles apassionadament enamorades o amb capacitat fins a tres persones');
+</pre>
+
+    <h3>Taula REALITZA</h3>
+    <pre class="font-codi">
+    CREATE TABLE REALITZA ( 
+        IdEmpleat INT, 
+        IdTasca INT, 
+        PRIMARY KEY (IdEmpleat, IdTasca), 
+        FOREIGN KEY (IdEmpleat) REFERENCES EMPLEAT(IdEmpleat), 
+        FOREIGN KEY (IdTasca) REFERENCES TASCA(IdTasca) 
+    );
+</pre>
+
+    <pre class="font-codi">
+    INSERT INTO realitza (IdEmpleat, IdTasca)  
+    VALUES  
+    (1, 1),  
+    (2, 2),  
+    (6, 3);
+</pre>
+</body>
+
+</html>

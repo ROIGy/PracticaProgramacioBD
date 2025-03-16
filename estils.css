@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding-top: 80px;
+}
+h1 {
+    color: #333;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin: 10px 0;
+}
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #514a4a;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 11; /* Per assegurar-se que estigui per damunt d'altres elements */
+}
+
+nav .logo{
+    height: 30px;
+    margin-left: 20px;
+    
+}
+
+nav .links {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+nav .links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: transform 0.1s ease-in-out;
+}
+
+
+nav .links a:hover {
+    transform: scale(1.1);
+}
+
+.interlineat-ampliat {
+    line-height: 1.8; /* Ajusta aquest valor segons les teves necessitats */
+}
+
+.font-codi {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px; /* Ajusta la mida segons les teves necessitats */
+    background-color: #f4f4f4; /* Fons clar per destacar el codi */
+    padding: 10px; /* Espai interior per millorar la llegibilitat */
+    border-radius: 5px; /* Cantonades arrodonides */
+    border: 1px solid #ccc; /* Vora subtil */
+    font-weight: 500;
+    line-height: 2.2;
+}
