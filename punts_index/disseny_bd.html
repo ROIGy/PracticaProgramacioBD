@@ -54,173 +54,173 @@
 
     <h2 id="disseny_fisic">3. Disseny físic: Script DDL SQL i SQL per fer les proves (inserts)</h2>
     <h3>Taula PERSONA</h3>
-    <pre class="font-codi">
-    CREATE TABLE PERSONA ( 
-        IdPersona INT AUTO_INCREMENT PRIMARY KEY, 
-        nom VARCHAR(50), 
-        cognom VARCHAR(50),
-        adreça VARCHAR(100),
-        doc_id VARCHAR(10),
-        data_naix DATE, 
-        tlf VARCHAR(15),
-        email VARCHAR(50)
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">PERSONA</span> ( 
+        <span class="function">IdPersona</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">nom</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">cognom</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>),
+        <span class="function">adreça</span> <span class="keyword">VARCHAR</span>(<span class="number">100</span>),
+        <span class="function">doc_id</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>),
+        <span class="function">data_naix</span> <span class="keyword">DATE</span>, 
+        <span class="function">tlf</span> <span class="keyword">VARCHAR</span>(<span class="number">15</span>),
+        <span class="function">email</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>)
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO persona (IdPersona, nom, cognom, adreça, nif, data_naix, tlf, email) 
-    VALUES  
-    (1, 'Marc', 'Soler', 'C/ Gran Via, 12, BCN', '12345678X', '1985-06-15', '612345678', 'marc.soler@email.com'),  
-    (2, 'Anna', 'Puig', 'Av. Diagonal, 44, BCN', '87654321Y', '1992-03-22', '698765432', 'anna.puig@email.com'),  
-    (3, 'Joan', 'Vila', 'C/ Balmes, 99, BCN', '11223344Z', '1978-11-30', '634567890', 'joan.vila@email.com'), 
-    (4, 'Laura', 'González', 'C/ Pau Casals, 15, BCN', '22334455A', '1990-08-10', '667788990', 'laura.gonzalez@email.com'),
-    (5, 'David', 'Martínez', 'C/ de Sants, 80, BCN', '33445566B', '1983-11-25', '679123456', 'david.martinez@email.com'),
-    (6, 'Sofia', 'Ramírez', 'C/ del Mar, 22, BCN', '44556677C', '1995-05-30', '688234567', 'sofia.ramirez@email.com');
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">persona</span> (<span class="function">IdPersona</span>, <span class="function">nom</span>, <span class="function">cognom</span>, <span class="function">adreça</span>, <span class="function">nif</span>, <span class="function">data_naix</span>, <span class="function">tlf</span>, <span class="function">email</span>) 
+    <span class="keyword">VALUES</span>  
+    (<span class="number">1</span>, <span class="string">'Marc'</span>, <span class="string">'Soler'</span>, <span class="string">'C/ Gran Via, 12, BCN'</span>, <span class="string">'12345678X'</span>, <span class="string">'1985-06-15'</span>, <span class="string">'612345678'</span>, <span class="string">'marc.soler@email.com'</span>),  
+    (<span class="number">2</span>, <span class="string">'Anna'</span>, <span class="string">'Puig'</span>, <span class="string">'Av. Diagonal, 44, BCN'</span>, <span class="string">'87654321Y'</span>, <span class="string">'1992-03-22'</span>, <span class="string">'698765432'</span>, <span class="string">'anna.puig@email.com'</span>),  
+    (<span class="number">3</span>, <span class="string">'Joan'</span>, <span class="string">'Vila'</span>, <span class="string">'C/ Balmes, 99, BCN'</span>, <span class="string">'11223344Z'</span>, <span class="string">'1978-11-30'</span>, <span class="string">'634567890'</span>, <span class="string">'joan.vila@email.com'</span>), 
+    (<span class="number">4</span>, <span class="string">'Laura'</span>, <span class="string">'González'</span>, <span class="string">'C/ Pau Casals, 15, BCN'</span>, <span class="string">'22334455A'</span>, <span class="string">'1990-08-10'</span>, <span class="string">'667788990'</span>, <span class="string">'laura.gonzalez@email.com'</span>),
+    (<span class="number">5</span>, <span class="string">'David'</span>, <span class="string">'Martínez'</span>, <span class="string">'C/ de Sants, 80, BCN'</span>, <span class="string">'33445566B'</span>, <span class="string">'1983-11-25'</span>, <span class="string">'679123456'</span>, <span class="string">'david.martinez@email.com'</span>),
+    (<span class="number">6</span>, <span class="string">'Sofia'</span>, <span class="string">'Ramírez'</span>, <span class="string">'C/ del Mar, 22, BCN'</span>, <span class="string">'44556677C'</span>, <span class="string">'1995-05-30'</span>, <span class="string">'688234567'</span>, <span class="string">'sofia.ramirez@email.com'</span>);
 </pre>
 
-    <h3>Taula CLIENT</h3>
-    <pre class="font-codi">
-    CREATE TABLE CLIENT ( 
-        IdClient INT AUTO_INCREMENT PRIMARY KEY, 
-        data_registre DATE, 
-        tipus_client VARCHAR(50), 
-        targeta_credit VARCHAR(19), 
-        FOREIGN KEY (IdClient) REFERENCES PERSONA(IdPersona) 
+<h3>Taula CLIENT</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">CLIENT</span> ( 
+        <span class="function">IdClient</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">data_registre</span> <span class="keyword">DATE</span>, 
+        <span class="function">tipus_client</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">targeta_credit</span> <span class="keyword">VARCHAR</span>(<span class="number">19</span>), 
+        <span class="keyword">FOREIGN KEY</span> (<span class="function">IdClient</span>) <span class="keyword">REFERENCES</span> <span class="function">PERSONA</span>(<span class="function">IdPersona</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO client (IdClient, data_registre, tipus_client, targeta_credit)  
-    VALUES  
-    (3, '2023-12-01', 'Bàsic', '1234-5678-9101-1121'),  
-    (4, '2022-08-15', 'Premium', '2345-6789-1011-2132'),  
-    (5, '2024-02-20', 'Estàndard', '3456-7890-1121-3143');
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">client</span> (<span class="function">IdClient</span>, <span class="function">data_registre</span>, <span class="function">tipus_client</span>, <span class="function">targeta_credit</span>)  
+    <span class="keyword">VALUES</span>  
+    (<span class="number">3</span>, <span class="string">'2023-12-01'</span>, <span class="string">'Bàsic'</span>, <span class="string">'1234-5678-9101-1121'</span>),  
+    (<span class="number">4</span>, <span class="string">'2022-08-15'</span>, <span class="string">'Premium'</span>, <span class="string">'2345-6789-1011-2132'</span>),  
+    (<span class="number">5</span>, <span class="string">'2024-02-20'</span>, <span class="string">'Estàndard'</span>, <span class="string">'3456-7890-1121-3143'</span>);
 </pre>
 
-    <h3>Taula EMPLEAT</h3>
-    <pre class="font-codi">
-    CREATE TABLE EMPLEAT ( 
-        IdEmpleat INT AUTO_INCREMENT PRIMARY KEY, 
-        lloc_feina VARCHAR(50), 
-        data_contrac DATE, 
-        salari_brut DECIMAL(10, 2), 
-        estat_laboral VARCHAR(10), 
-        FOREIGN KEY (IdEmpleat) REFERENCES PERSONA(IdPersona) 
+<h3>Taula EMPLEAT</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">EMPLEAT</span> ( 
+        <span class="function">IdEmpleat</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">lloc_feina</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">data_contrac</span> <span class="keyword">DATE</span>, 
+        <span class="function">salari_brut</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>), 
+        <span class="function">estat_laboral</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>), 
+        <span class="keyword">FOREIGN KEY</span> (<span class="function">IdEmpleat</span>) <span class="keyword">REFERENCES</span> <span class="function">PERSONA</span>(<span class="function">IdPersona</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO empleat (IdEmpleat, lloc_feina, data_contrac, salari_brut, estat_laboral)  
-    VALUES 
-    (1, 'Recepcionista', '2021-10-20', 26000.00, 'Actiu'),  
-    (2, 'Cambrer', '2019-11-05', 23000.00, 'Actiu'),  
-    (6, 'Neteja', '2020-02-18', 21000.00, 'Actiu');
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">empleat</span> (<span class="function">IdEmpleat</span>, <span class="function">lloc_feina</span>, <span class="function">data_contrac</span>, <span class="function">salari_brut</span>, <span class="function">estat_laboral</span>)  
+    <span class="keyword">VALUES</span> 
+    (<span class="number">1</span>, <span class="string">'Recepcionista'</span>, <span class="string">'2021-10-20'</span>, <span class="number">26000.00</span>, <span class="string">'Actiu'</span>),  
+    (<span class="number">2</span>, <span class="string">'Cambrer'</span>, <span class="string">'2019-11-05'</span>, <span class="number">23000.00</span>, <span class="string">'Actiu'</span>),  
+    (<span class="number">6</span>, <span class="string">'Neteja'</span>, <span class="string">'2020-02-18'</span>, <span class="number">21000.00</span>, <span class="string">'Actiu'</span>);
 </pre>
 
-    <h3>Taula TASCA</h3>
-    <pre class="font-codi">
-    CREATE TABLE TASCA ( 
-        IdTasca INT AUTO_INCREMENT PRIMARY KEY, 
-        descripcio VARCHAR(255), 
-        data_creacio DATE, 
-        data_execucio DATE, 
-        estat_tasca VARCHAR(50) 
+<h3>Taula TASCA</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">TASCA</span> ( 
+        <span class="function">IdTasca</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">descripcio</span> <span class="keyword">VARCHAR</span>(<span class="number">255</span>), 
+        <span class="function">data_creacio</span> <span class="keyword">DATE</span>, 
+        <span class="function">data_execucio</span> <span class="keyword">DATE</span>, 
+        <span class="function">estat_tasca</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO tasca (IdTasca, descripcio, data_creacio, data_execucio, estat_tasca)  
-    VALUES  
-    (1, 'Canviar brosses habitacions', '2024-05-01', '2024-05-05', 'pendent'),  
-    (2, 'Netejar habitacions', '2024-06-01', '2024-06-05', 'acabada'),  
-    (3, 'Canviar les tovalloles de les dutxes', '2024-07-01', '2024-07-05', 'pendent');
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">tasca</span> (<span class="function">IdTasca</span>, <span class="function">descripcio</span>, <span class="function">data_creacio</span>, <span class="function">data_execucio</span>, <span class="function">estat_tasca</span>)  
+    <span class="keyword">VALUES</span>  
+    (<span class="number">1</span>, <span class="string">'Canviar brosses habitacions'</span>, <span class="string">'2024-05-01'</span>, <span class="string">'2024-05-05'</span>, <span class="string">'pendent'</span>),  
+    (<span class="number">2</span>, <span class="string">'Netejar habitacions'</span>, <span class="string">'2024-06-01'</span>, <span class="string">'2024-06-05'</span>, <span class="string">'acabada'</span>),  
+    (<span class="number">3</span>, <span class="string">'Canviar les tovalloles de les dutxes'</span>, <span class="string">'2024-07-01'</span>, <span class="string">'2024-07-05'</span>, <span class="string">'pendent'</span>);
 </pre>
 
-    <h3>Taula RESERVA</h3>
-    <pre class="font-codi">
-    CREATE TABLE RESERVA ( 
-        IdReserva INT AUTO_INCREMENT PRIMARY KEY, 
-        data_reserva DATE, 
-        data_inici DATE, 
-        data_fi DATE, 
-        tipus_reserva VARCHAR(50), 
-        tipus_IVA DECIMAL(4, 2), 
-        preu_total DECIMAL(10, 2), 
-        IdHabitacio INT, 
-        IdClient INT, 
-        FOREIGN KEY (IdClient) REFERENCES CLIENT(IdClient) 
+<h3>Taula RESERVA</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">RESERVA</span> ( 
+        <span class="function">IdReserva</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">data_reserva</span> <span class="keyword">DATE</span>, 
+        <span class="function">data_inici</span> <span class="keyword">DATE</span>, 
+        <span class="function">data_fi</span> <span class="keyword">DATE</span>, 
+        <span class="function">tipus_reserva</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">tipus_IVA</span> <span class="keyword">DECIMAL</span>(<span class="number">4</span>, <span class="number">2</span>), 
+        <span class="function">preu_total</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>), 
+        <span class="function">IdHabitacio</span> <span class="keyword">INT</span>, 
+        <span class="function">IdClient</span> <span class="keyword">INT</span>, 
+        <span class="keyword">FOREIGN KEY</span> (<span class="function">IdClient</span>) <span class="keyword">REFERENCES</span> <span class="function">CLIENT</span>(<span class="function">IdClient</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO reserva (IdReserva, data_reserva, data_inici, data_fi, tipus_reserva, tipus_IVA, preu_total, IdHabitacio, IdClient)  
-    VALUES  
-    (304, '2024-03-15', '2024-04-15', '2024-04-20', 'Individual', 10.00, 800.00, 404, 3),  
-    (305, '2024-04-01', '2024-05-01', '2024-05-07', 'Doble', 21.00, 1300.00, 405, 5),  
-    (306, '2024-05-10', '2024-06-10', '2024-06-17', 'Suite', 21.00, 3200.00, 406, 4);
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">reserva</span> (<span class="function">IdReserva</span>, <span class="function">data_reserva</span>, <span class="function">data_inici</span>, <span class="function">data_fi</span>, <span class="function">tipus_reserva</span>, <span class="function">tipus_IVA</span>, <span class="function">preu_total</span>, <span class="function">IdHabitacio</span>, <span class="function">IdClient</span>)  
+    <span class="keyword">VALUES</span>  
+    (<span class="number">304</span>, <span class="string">'2024-03-15'</span>, <span class="string">'2024-04-15'</span>, <span class="string">'2024-04-20'</span>, <span class="string">'Individual'</span>, <span class="number">10.00</span>, <span class="number">800.00</span>, <span class="number">404</span>, <span class="number">3</span>),  
+    (<span class="number">305</span>, <span class="string">'2024-04-01'</span>, <span class="string">'2024-05-01'</span>, <span class="string">'2024-05-07'</span>, <span class="string">'Doble'</span>, <span class="number">21.00</span>, <span class="number">1300.00</span>, <span class="number">405</span>, <span class="number">5</span>),  
+    (<span class="number">306</span>, <span class="string">'2024-05-10'</span>, <span class="string">'2024-06-10'</span>, <span class="string">'2024-06-17'</span>, <span class="string">'Suite'</span>, <span class="number">21.00</span>, <span class="number">3200.00</span>, <span class="number">406</span>, <span class="number">4</span>);
 </pre>
 
-    <h3>Taula FACTURA</h3>
-    <pre class="font-codi">
-    CREATE TABLE FACTURA ( 
-        IdFactura INT AUTO_INCREMENT PRIMARY KEY, 
-        data_emissio DATE, 
-        metode_pagament VARCHAR(50), 
-        base_imposable DECIMAL(10, 2), 
-        IVA DECIMAL(4, 2), 
-        total DECIMAL(10, 2), 
-        IdReserva INT, 
-        FOREIGN KEY (IdReserva) REFERENCES RESERVA(IdReserva) 
+<h3>Taula FACTURA</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">FACTURA</span> ( 
+        <span class="function">IdFactura</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">data_emissio</span> <span class="keyword">DATE</span>, 
+        <span class="function">metode_pagament</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">base_imposable</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>), 
+        <span class="function">IVA</span> <span class="keyword">DECIMAL</span>(<span class="number">4</span>, <span class="number">2</span>), 
+        <span class="function">total</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>), 
+        <span class="function">IdReserva</span> <span class="keyword">INT</span>, 
+        <span class="keyword">FOREIGN KEY</span> (<span class="function">IdReserva</span>) <span class="keyword">REFERENCES</span> <span class="function">RESERVA</span>(<span class="function">IdReserva</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO factura (IdFactura, data_emissio, metode_pagament, base_imposable, IVA, total, IdReserva)  
-    VALUES  
-    (101, '2024-08-01', 'Targeta de crèdit', 1000.00, 21.00, 1210.00, 306),  
-    (102, '2024-09-01', 'Efectiu', 2000.00, 10.00, 2200.00, 304),  
-    (103, '2024-10-01', 'Transferència', 1500.00, 21.00, 1815.00, 305);
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">factura</span> (<span class="function">IdFactura</span>, <span class="function">data_emissio</span>, <span class="function">metode_pagament</span>, <span class="function">base_imposable</span>, <span class="function">IVA</span>, <span class="function">total</span>, <span class="function">IdReserva</span>)  
+    <span class="keyword">VALUES</span>  
+    (<span class="number">101</span>, <span class="string">'2024-08-01'</span>, <span class="string">'Targeta de crèdit'</span>, <span class="number">1000.00</span>, <span class="number">21.00</span>, <span class="number">1210.00</span>, <span class="number">306</span>),  
+    (<span class="number">102</span>, <span class="string">'2024-09-01'</span>, <span class="string">'Efectiu'</span>, <span class="number">2000.00</span>, <span class="number">10.00</span>, <span class="number">2200.00</span>, <span class="number">304</span>),  
+    (<span class="number">103</span>, <span class="string">'2024-10-01'</span>, <span class="string">'Transferència'</span>, <span class="number">1500.00</span>, <span class="number">21.00</span>, <span class="number">1815.00</span>, <span class="number">305</span>);
 </pre>
 
-    <h3>Taula HABITACIÓ</h3>
-    <pre class="font-codi">
-    CREATE TABLE HABITACIO ( 
-        IdHabitacio INT AUTO_INCREMENT PRIMARY KEY, 
-        num_habitacio INT, 
-        tipus_habitacio VARCHAR(50), 
-        capacitat INT, 
-        preu_nitAD DECIMAL(10, 2), 
-        preu_nitMP DECIMAL(10, 2), 
-        estat_habitacio VARCHAR(50), 
-        descripcio VARCHAR(255) 
+<h3>Taula HABITACIÓ</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">HABITACIO</span> ( 
+        <span class="function">IdHabitacio</span> <span class="keyword">INT</span> <span class="keyword">AUTO_INCREMENT PRIMARY KEY</span>, 
+        <span class="function">num_habitacio</span> <span class="keyword">INT</span>, 
+        <span class="function">tipus_habitacio</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">capacitat</span> <span class="keyword">INT</span>, 
+        <span class="function">preu_nitAD</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>), 
+        <span class="function">preu_nitMP</span> <span class="keyword">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>), 
+        <span class="function">estat_habitacio</span> <span class="keyword">VARCHAR</span>(<span class="number">50</span>), 
+        <span class="function">descripcio</span> <span class="keyword">VARCHAR</span>(<span class="number">255</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO habitacio (IdHabitacio, num_habitacio, tipus_habitacio, capacitat, preu_nitAD, preu_nitMP, estat_habitacio, descripcio)  
-    VALUES  
-    (401, 101, 'Individual', 1, 70.00, 100.00, 'Lliure', 'Habitació individual acollidora i molt pràctica'),  
-    (402, 102, 'Doble', 2, 120.00, 150.00, 'Ocupada', 'Habitació per 2 persones, gran i espaiosa'),  
-    (403, 103, 'Suite', 3, 300.00, 350.00, 'Lliure', 'Suite ideal per a parelles apassionadament enamorades o amb capacitat fins a tres persones');
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">habitacio</span> (<span class="function">IdHabitacio</span>, <span class="function">num_habitacio</span>, <span class="function">tipus_habitacio</span>, <span class="function">capacitat</span>, <span class="function">preu_nitAD</span>, <span class="function">preu_nitMP</span>, <span class="function">estat_habitacio</span>, <span class="function">descripcio</span>)  
+    <span class="keyword">VALUES</span>  
+    (<span class="number">401</span>, <span class="number">101</span>, <span class="string">'Individual'</span>, <span class="number">1</span>, <span class="number">70.00</span>, <span class="number">100.00</span>, <span class="string">'Lliure'</span>, <span class="string">'Habitació individual acollidora i molt pràctica'</span>),  
+    (<span class="number">402</span>, <span class="number">102</span>, <span class="string">'Doble'</span>, <span class="number">2</span>, <span class="number">120.00</span>, <span class="number">150.00</span>, <span class="string">'Ocupada'</span>, <span class="string">'Habitació per 2 persones, gran i espaiosa'</span>),  
+    (<span class="number">403</span>, <span class="number">103</span>, <span class="string">'Suite'</span>, <span class="number">3</span>, <span class="number">300.00</span>, <span class="number">350.00</span>, <span class="string">'Lliure'</span>, <span class="string">'Suite ideal per a parelles apassionadament enamorades o amb capacitat fins a tres persones'</span>);
 </pre>
 
-    <h3>Taula REALITZA</h3>
-    <pre class="font-codi">
-    CREATE TABLE REALITZA ( 
-        IdEmpleat INT, 
-        IdTasca INT, 
-        PRIMARY KEY (IdEmpleat, IdTasca), 
-        FOREIGN KEY (IdEmpleat) REFERENCES EMPLEAT(IdEmpleat), 
-        FOREIGN KEY (IdTasca) REFERENCES TASCA(IdTasca) 
+<h3>Taula REALITZA</h3>
+<pre class="font-codi">
+    <span class="keyword">CREATE TABLE</span> <span class="function">REALITZA</span> ( 
+        <span class="function">IdEmpleat</span> <span class="keyword">INT</span>, 
+        <span class="function">IdTasca</span> <span class="keyword">INT</span>, 
+        <span class="keyword">PRIMARY KEY</span> (<span class="function">IdEmpleat</span>, <span class="function">IdTasca</span>), 
+        <span class="keyword">FOREIGN KEY</span> (<span class="function">IdEmpleat</span>) <span class="keyword">REFERENCES</span> <span class="function">EMPLEAT</span>(<span class="function">IdEmpleat</span>), 
+        <span class="keyword">FOREIGN KEY</span> (<span class="function">IdTasca</span>) <span class="keyword">REFERENCES</span> <span class="function">TASCA</span>(<span class="function">IdTasca</span>) 
     );
 </pre>
 
-    <pre class="font-codi">
-    INSERT INTO realitza (IdEmpleat, IdTasca)  
-    VALUES  
-    (1, 1),  
-    (2, 2),  
-    (6, 3);
+<pre class="font-codi">
+    <span class="keyword">INSERT INTO</span> <span class="function">realitza</span> (<span class="function">IdEmpleat</span>, <span class="function">IdTasca</span>)  
+    <span class="keyword">VALUES</span>  
+    (<span class="number">1</span>, <span class="number">1</span>),  
+    (<span class="number">2</span>, <span class="number">2</span>),  
+    (<span class="number">6</span>, <span class="number">3</span>);
 </pre>
 </body>
 

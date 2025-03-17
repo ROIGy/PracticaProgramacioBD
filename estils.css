@@ -71,12 +71,39 @@ nav .links a:hover {
 .font-codi {
     font-family: "Courier New", Courier, monospace;
     font-size: 14px; /* Ajusta la mida segons les teves necessitats */
-    background-color: #f4f4f4; /* Fons clar per destacar el codi */
+    background-color: #000000; /* Fons negre */
+    color: #ffffff; /* Color de lletra base (blanc) */
     padding: 10px; /* Espai interior per millorar la llegibilitat */
     border-radius: 5px; /* Cantonades arrodonides */
-    border: 1px solid #ccc; /* Vora subtil */
+    border: 1px solid #444; /* Vora més fosca per contrastar amb el fons negre */
     font-weight: 500;
     line-height: 2.2;
+    overflow-x: auto; /* Afegir scroll horitzontal si el codi és massa ample */
+}
+
+/* Colors per a elements del codi SQL */
+.font-codi .keyword {
+    color: #569cd6; /* Color per a paraules clau (SELECT, FROM, WHERE, etc.) */
+}
+
+.font-codi .string {
+    color: #ce9178; /* Color per a strings (text entre cometes) */
+}
+
+.font-codi .number {
+    color: #b5cea8; /* Color per a números */
+}
+
+.font-codi .comment {
+    color: #6a9955; /* Color per a comentaris (-- o / ... /) */ 
+}
+
+.font-codi .function {
+    color: #dcdcaa; /* Color per a funcions (COUNT, SUM, etc.) */
+}
+
+.font-codi .operator {
+    color: #d4d4d4; /* Color per a operadors (+, -, =, etc.) */
 }
 
 .titol-index {
