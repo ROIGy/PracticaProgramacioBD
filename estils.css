@@ -35,10 +35,13 @@ nav {
     z-index: 11; /* Per assegurar-se que estigui per damunt d'altres elements */
 }
 
-nav .logo{
-    height: 30px;
+nav .index-link{
     margin-left: 20px;
-    
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: transform 0.1s ease-in-out;
 }
 
 nav .links {
@@ -66,6 +69,7 @@ nav .links a:hover {
 
 .interlineat-ampliat {
     line-height: 1.8; /* Ajusta aquest valor segons les teves necessitats */
+    font-weight: 500;
 }
 
 .font-codi {
