@@ -114,3 +114,36 @@ nav .links a:hover {
     font-size: 29px;
     font-family: Arial, sans-serif;
 }
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    margin-bottom: 30px;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.image-container p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1 .satisfaction{
+    color: #333;
+    margin-bottom: 20px;
+}
