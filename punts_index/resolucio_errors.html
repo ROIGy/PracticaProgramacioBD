@@ -24,6 +24,43 @@
             altres eines i aplicacions.
         </p>
         
+        <h2>La connexió es queda tancada i no es poden fer consultes</h2>
+
+        <p>Al principi de l'elaboració del projecte vaig començar creant una nova variable connexió per a cada mètode del controlador.
+            Després vaig descobrir que era molt més pràctic tenir una sola variable connexió com a atribut de cadascuna de les classes
+            de controlador que requerissin consultes cridant mètodes del model, però després em vaig adonar que això podia comportar alguns
+            errors inesperats. <br> 
+            En alguns mètodes d'alguna de les classes controlador (principalment a la classe ReservesController) he trobat l'error que la connexió estava tancada, i encara
+            que la obrís, algun mètode la tancava a mig mètode i no permetia fer les consultes necessàries criant els mètodes del model. <br>
+            Això ho vaig solucionar utilitzant variables connexió específiques per als mètodes amb consultes que donessin error utilitzant la variable atribut.
+
+        </p>
+
+        <pre class="java-code">
+
+            <span class="keyword">try</span> (<span class="class">Connection</span> connection1 = <span class="keyword">new</span> <span class="class">Connexio</span>().<span class="method">connecta</span>()) {
+                <span class="keyword">boolean</span> coincidencia = model.<span class="method">checkHabitacioLliure</span>(connection1, dataChkIn, dataChkOut, escullHab.<span class="method">getSelectionModel</span>().<span class="method">getSelectedItem</span>().<span class="method">getIdHabitacio</span>());
+                <span class="keyword">if</span> (coincidencia == <span class="keyword">true</span>) {
+                    <span class="method">alerta</span>(<span class="string">"No es pot fer una reserva. L'habitació que has seleccionat està ocupada en aquestes dates."</span>);
+                    campsOmplerts = <span class="keyword">false</span>;
+                }
+            } <span class="keyword">catch</span> (<span class="class">SQLException</span> e) {
+                <span class="method">alerta</span>(<span class="string">"Error en establir connexió amb la base de dades: "</span> + e.<span class="method">getMessage</span>());
+            }
+        </pre>
+        <br>
+
+        <h2>Lògica incorrecta del mètode "Desa els canvis" a l'apartat de tasques.</h2>
+        <p>A l'apartat de tasques vaig arrossegar un problema del que no trobava solució durant molt temps.
+            Un cop introdueixes un NIF d'empleat que tingui tasques pendents, s'habiliten tots els camps que et mostren les 
+            característiques de la tasca. Al final d'aquesta part de la pàgina hi ha un botó "Desa els canvis", pensat per fer 
+            la consulta de canviar totes les columnes a la taula Tasca de la fila de la tasca que s'hagués seleccionat al desplegable.
+        </p>
+        <div class="image-container">
+            <img src="/punts_index/imgs_errors/tasques_desarcanvis_cap.png" alt="Camps d'una tasca creada">
+            <img src="/punts_index/imgs_errors/tasques_desarcanvis_cap2.png" alt="Camps d'una tasca creada 2">
+        </div>
+        <p>El problema va ser que </p>
 </body>
 
 </html>

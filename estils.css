@@ -156,3 +156,49 @@ h1 .satisfaction{
     color: #333;
     margin-bottom: 20px;
 }
+
+pre.java-code {
+    background-color: #000000; /* Fons negre */
+    color: #f8f8f2; /* Color de text clar per contrast */
+    padding: 15px; /* Espai interior per millorar la presentació */
+    border-radius: 5px; /* Vores arrodonides */
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Font monoespaiada per al codi */
+    font-size: 14px; /* Mida de la font */
+    line-height: 1.5; /* Alçada de línia per millorar la llegibilitat */
+    overflow-x: auto; /* Scroll horitzontal si el codi és massa ample */
+    tab-size: 4; /* Mida de la tabulació */
+    white-space: pre-wrap; /* Conserva els salts de línia i els espais */
+    word-wrap: break-word; /* Ajusta el text si és necessari */
+}
+
+/* Estils per a les paraules clau del codi Java */
+pre.java-code .keyword {
+    color: #ff79c6; /* Color per a paraules clau (pink) */
+    font-weight: bold;
+}
+
+/* Estils per a les cadenes de text */
+pre.java-code .string {
+    color: #f1fa8c; /* Color per a cadenes de text (yellow) */
+}
+
+/* Estils per als comentaris */
+pre.java-code .comment {
+    color: #6272a4; /* Color per als comentaris (gris blavós) */
+    font-style: italic;
+}
+
+/* Estils per als números */
+pre.java-code .number {
+    color: #bd93f9; /* Color per als números (purple) */
+}
+
+/* Estils per als mètodes */
+pre.java-code .method {
+    color: #50fa7b; /* Color per als mètodes (green) */
+}
+
+/* Estils per a les classes */
+pre.java-code .class {
+    color: #8be9fd; /* Color per a les classes (cian) */
+}
