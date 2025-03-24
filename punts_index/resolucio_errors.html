@@ -60,7 +60,24 @@
             <img src="/punts_index/imgs_errors/tasques_desarcanvis_cap.png" alt="Camps d'una tasca creada">
             <img src="/punts_index/imgs_errors/tasques_desarcanvis_cap2.png" alt="Camps d'una tasca creada 2">
         </div>
-        <p>El problema va ser que </p>
+        <p>El problema va ser que la consulta que actualitzava els canvis a la taula Tasca actualitzava directament tots els camps de la seguent manera:
+        </p>
+        <pre class="java-code">
+            <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="method">editarTasca</span>(<span class="class">Connection</span> connection, <span class="keyword">int</span> idTasca, <span class="class">String</span> novaDataExecucio) <span class="keyword">throws</span> <span class="class">SQLException</span> {
+                <span class="class">String</span> sql = <span class="string">"UPDATE tasca SET data_execucio = ? WHERE IdTasca = ?"</span>;
+                <span class="keyword">try</span> (<span class="class">PreparedStatement</span> ordre = connection.<span class="method">prepareStatement</span>(sql)) {
+                    ordre.<span class="method">setString</span>(<span class="number">1</span>, novaDataExecucio);
+                    ordre.<span class="method">setInt</span>(<span class="number">2</span>, idTasca);
+            
+                    <span class="keyword">int</span> rowsUpdated = ordre.<span class="method">executeUpdate</span>();
+                    <span class="keyword">return</span> rowsUpdated > <span class="number">0</span>;
+            
+                } <span class="keyword">catch</span> (<span class="class">SQLException</span> e) {
+                    <span class="class">System</span>.err.<span class="method">println</span>(<span class="string">"Error en actualitzar la tasca a la BD: "</span> + e.<span class="method">getMessage</span>());
+                    <span class="keyword">return</span> <span class="keyword">false</span>;
+                }
+            }
+            </pre>
 </body>
 
 </html>
