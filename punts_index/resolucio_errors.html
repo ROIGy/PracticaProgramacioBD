@@ -20,20 +20,26 @@
     </nav>
     <div class="container">
         <h1>Resolució de problemes i errors</h1>
-        <p>Aquí veurem alguns problemes i errors que he tingut durant el procés de programació del codi font i a l'enllaçament amb
+        <p>Aquí veurem alguns problemes i errors que he tingut durant el procés de programació del codi font i a
+            l'enllaçament amb
             altres eines i aplicacions.
         </p>
-        
+
         <h2>La connexió es queda tancada i no es poden fer consultes</h2>
 
-        <p>Al principi de l'elaboració del projecte vaig començar creant una nova variable connexió per a cada mètode del controlador.
-            Després vaig descobrir que era molt més pràctic tenir una sola variable connexió com a atribut de cadascuna de les classes
-            de controlador que requerissin consultes cridant mètodes del model, però després em vaig adonar que això podia comportar alguns
-            errors inesperats. <br> 
-            En alguns mètodes d'alguna de les classes controlador (principalment a la classe ReservesController) he trobat l'error que la connexió estava tancada, i encara
-            que la obrís, algun mètode la tancava a mig mètode i no permetia fer les consultes necessàries criant els mètodes del model. <br>
-            Això ho vaig solucionar utilitzant variables connexió específiques per als mètodes amb consultes que donessin error utilitzant la variable atribut.
-
+        <p>Al principi de l'elaboració del projecte vaig començar creant una nova variable connexió per a cada mètode
+            del controlador.
+            Després vaig descobrir que era molt més pràctic tenir una sola variable connexió com a atribut de cadascuna
+            de les classes
+            de controlador que requerissin consultes cridant mètodes del model, però després em vaig adonar que això
+            podia comportar alguns
+            errors inesperats. <br>
+            En alguns mètodes d'alguna de les classes controlador (principalment a la classe ReservesController) he
+            trobat l'error que la connexió estava tancada, i encara
+            que la obrís, algun mètode la tancava a mig mètode i no permetia fer les consultes necessàries criant els
+            mètodes del model. <br>
+            Això ho vaig solucionar utilitzant variables connexió específiques per als mètodes amb consultes que
+            donessin error utilitzant la variable atribut.
         </p>
 
         <pre class="java-code">
@@ -50,17 +56,21 @@
         </pre>
         <br>
 
-        <h2>Lògica incorrecta del mètode "Desa els canvis" a l'apartat de tasques.</h2>
+        <h2>Lògica incorrecta del mètode "Desa els canvis" a l'apartat de tasques</h2>
         <p>A l'apartat de tasques vaig arrossegar un problema del que no trobava solució durant molt temps.
-            Un cop introdueixes un NIF d'empleat que tingui tasques pendents, s'habiliten tots els camps que et mostren les 
-            característiques de la tasca. Al final d'aquesta part de la pàgina hi ha un botó "Desa els canvis", pensat per fer 
-            la consulta de canviar totes les columnes a la taula Tasca de la fila de la tasca que s'hagués seleccionat al desplegable.
+            Un cop introdueixes un NIF d'empleat que tingui tasques pendents, s'habiliten tots els camps que et mostren
+            les
+            característiques de la tasca. Al final d'aquesta part de la pàgina hi ha un botó "Desa els canvis", pensat
+            per fer
+            la consulta de canviar totes les columnes a la taula Tasca de la fila de la tasca que s'hagués seleccionat
+            al desplegable.
         </p>
         <div class="image-container">
             <img src="/punts_index/imgs_errors/tasques_desarcanvis_cap.png" alt="Camps d'una tasca creada">
             <img src="/punts_index/imgs_errors/tasques_desarcanvis_cap2.png" alt="Camps d'una tasca creada 2">
         </div>
-        <p>El problema va ser que la consulta que actualitzava els canvis a la taula Tasca actualitzava directament tots els camps de la seguent manera:
+        <p>El problema va ser que la consulta que actualitzava els canvis a la taula Tasca actualitzava directament tots
+            els camps de la seguent manera:
         </p>
         <pre class="java-code">
             <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="method">editarTasca</span>(<span class="class">Connection</span> connection, <span class="keyword">int</span> idTasca, <span class="class">String</span> novaDataExecucio) <span class="keyword">throws</span> <span class="class">SQLException</span> {
@@ -78,6 +88,57 @@
                 }
             }
             </pre>
+        <p>Aquest mètode, que ara mateix està correctament formulat perquè només modifica a la taula tascaa la data
+            prevista d'execució en cas que aquesta es canvïi,
+            modificava l'estat de la tasca, no només a la taula realitza amb un altre mètode, si no amb aquest. Llavors,
+            per molt que el mètode que actualitzés
+            a completada la tasca només si a la taula realitza estava completada a totes les files d'empleats que hi
+            havia assignats funcionés correctament,
+            ja aquest mètode del model actualitzava a completada la tasca en general. <br>
+            També vaig adonar-me més endavant de que actualitzava la data de creació de la tasca en cas que es
+            modifiqués el camp, cosa que no té sentit lògicament, i per
+            veure com vaig resoldre també això anirem al punt següent.
+        </p>
+
+        <h2>Camp "data creació" de la Tasca de la que no es podia deshabilitar l'edició</h2>
+        <p>Un cop em vaig adonar que, com explico al punt anterior, havia habilitat l'edició de la data de creació de la
+            tasca
+            vaig intentar simplement desactivar el checkbox "editable" de l'element al scenebuilder per a que no es
+            pogués modificar.
+            D'aquesta manera la caixa de text de l'element DatePicker es desactivava, però el botó per escollir una data
+            amb el cursor
+            seguía estant habilitat. D'aquesta manera vaig optar per substituir un DatePicker per simplement un TextField
+            que passava la
+            data com a String en el format adequat.
+        </p>
+        
+        <div class="image-container">
+            <img src="/punts_index/imgs_errors/captura_data_textbox.png" alt="Captura data textbox">
+        </div>
+        
+        <pre class="java-code">
+            <span class="comment">//Mètode per omplir els camps quan es selecciona una tasca</span>
+            <span class="keyword">private</span> <span class="keyword">void</span> <span class="method">omplirCampsTascaSeleccionada</span>(<span class="class">Tasca</span> tascaSeleccionada) {
+                dataPrevCompl.<span class="method">setValue</span>(tascaSeleccionada.<span class="method">getDataExecucio</span>());
+                <span class="class">String</span> dataFormatIncorrecte = tascaSeleccionada.<span class="method">getDataCreacio</span>().<span class="method">toString</span>();
+                <span class="class">String</span> dataFormatCorrecte = <span class="method">convertDateFormat</span>(dataFormatIncorrecte);
+                <span class="comment">//Variable dataCrea que hem convertit de DatePicker a TextField</span>
+                dataCrea.<span class="method">setText</span>(dataFormatCorrecte);
+            
+                estatTasca.<span class="method">setValue</span>(tascaSeleccionada.<span class="method">getvEstatTasca</span>());
+            }
+            
+            <span class="comment">//Mètode que passa la data de yyyy-MM-dd a dd/MM/yyyy</span>
+            <span class="keyword">public</span> <span class="class">String</span> <span class="method">convertDateFormat</span>(<span class="class">String</span> date) {
+                <span class="keyword">if</span> (date == <span class="keyword">null</span> || !date.<span class="method">matches</span>(<span class="string">"\\d{4}-\\d{2}-\\d{2}"</span>)) {
+                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">IllegalArgumentException</span>(<span class="string">"Format incorrecte. Ha de ser yyyy-MM-dd"</span>);
+                }
+            
+                <span class="class">String</span>[] parts = date.<span class="method">split</span>(<span class="string">"-"</span>);
+                <span class="keyword">return</span> parts[<span class="number">2</span>] + <span class="string">"/"</span> + parts[<span class="number">1</span>] + <span class="string">"/"</span> + parts[<span class="number">0</span>];  <span class="comment">// dd/MM/yyyy</span>
+            }
+            </pre>
+
 </body>
 
 </html>
