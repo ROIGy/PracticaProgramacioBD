@@ -81,6 +81,11 @@ nav .links a:hover {
     font-weight: 500;
 }
 
+.interlineat-ampliat2 {
+    line-height: 1.4; /* Ajusta aquest valor segons les teves necessitats */
+    font-weight: 500;
+}
+
 .font-codi {
     font-family: "Courier New", Courier, monospace;
     font-size: 14px; /* Ajusta la mida segons les teves necessitats */

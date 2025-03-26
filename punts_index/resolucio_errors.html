@@ -20,14 +20,17 @@
     </nav>
     <div class="container">
         <h1>Resolució de problemes i errors</h1>
-        <p>Aquí veurem alguns problemes i errors que he tingut durant el procés de programació del codi font i a
+        <p class="interlineat-ampliat2">Aquí veurem alguns problemes i errors que he tingut durant el procés de
+            programació del codi font i a
             l'enllaçament amb
             altres eines i aplicacions.
         </p>
+        <br>
 
         <h2>La connexió es queda tancada i no es poden fer consultes</h2>
 
-        <p>Al principi de l'elaboració del projecte vaig començar creant una nova variable connexió per a cada mètode
+        <p class="interlineat-ampliat2">Al principi de l'elaboració del projecte vaig començar creant una nova variable
+            connexió per a cada mètode
             del controlador.
             Després vaig descobrir que era molt més pràctic tenir una sola variable connexió com a atribut de cadascuna
             de les classes
@@ -36,14 +39,16 @@
             errors inesperats. <br>
             En alguns mètodes d'alguna de les classes controlador (principalment a la classe ReservesController) he
             trobat l'error que la connexió estava tancada, i encara
-            que la obrís, algun mètode la tancava a mig mètode i no permetia fer les consultes necessàries criant els
+            que la obrís, algun mètode referenciat la tancava a mig mètode i no permetia fer les consultes necessàries
+            cridant els
             mètodes del model. <br>
-            Això ho vaig solucionar utilitzant variables connexió específiques per als mètodes amb consultes que
-            donessin error utilitzant la variable atribut.
+            Això ho vaig solucionar utilitzant variables connexió específiques únicament per als mètodes amb consultes
+            que
+            donessin error utilitzant la variable connexió atribut de la classe.
         </p>
 
         <pre class="java-code">
-
+            <span class="comment">//Aquí veiem una de les ocasions en què, en aquest cas dins d'un try-with-resources, creem una nova variable connection temporalment en lloc d'obrir la connexió atribut de la classe</span>
             <span class="keyword">try</span> (<span class="class">Connection</span> connection1 = <span class="keyword">new</span> <span class="class">Connexio</span>().<span class="method">connecta</span>()) {
                 <span class="keyword">boolean</span> coincidencia = model.<span class="method">checkHabitacioLliure</span>(connection1, dataChkIn, dataChkOut, escullHab.<span class="method">getSelectionModel</span>().<span class="method">getSelectedItem</span>().<span class="method">getIdHabitacio</span>());
                 <span class="keyword">if</span> (coincidencia == <span class="keyword">true</span>) {
@@ -57,23 +62,60 @@
         <br>
 
         <h2>Lògica incorrecta del mètode "Desa els canvis" a l'apartat de tasques</h2>
-        <p>A l'apartat de tasques vaig arrossegar un problema del que no trobava solució durant molt temps.
+        <p class="interlineat-ampliat2">A l'apartat de tasques vaig arrossegar un problema del que no trobava solució
+            durant molt temps.
             Un cop introdueixes un NIF d'empleat que tingui tasques pendents, s'habiliten tots els camps que et mostren
             les
             característiques de la tasca. Al final d'aquesta part de la pàgina hi ha un botó "Desa els canvis", pensat
-            per fer
-            la consulta de canviar totes les columnes a la taula Tasca de la fila de la tasca que s'hagués seleccionat
+            per fer la consulta d'editar a la taula Tasca totes les columnes que es desitjessin modificar de la fila de
+            la tasca que s'hagués seleccionat
             al desplegable.
         </p>
         <div class="image-container">
             <img src="../punts_index/imgs_errors/tasques_desarcanvis_cap.png" alt="Camps d'una tasca creada">
             <img src="../punts_index/imgs_errors/tasques_desarcanvis_cap2.png" alt="Camps d'una tasca creada 2">
         </div>
-        <p>El problema va ser que la consulta que actualitzava els canvis a la taula Tasca actualitzava directament tots
+        <p class="interlineat-ampliat2">El problema va ser que la consulta que actualitzava els canvis a la taula Tasca
+            actualitzava directament tots
             els camps de la seguent manera:
         </p>
         <pre class="java-code">
+            <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="method">editarTasca</span>(<span class="class">Connection</span> connection, 
+                                        <span class="keyword">int</span> idTasca, 
+                                        <span class="class">String</span> nouEstatTasca,
+                                        <span class="class">String</span> novaDataCreacio,
+                                        <span class="class">String</span> novaDataExecucio) <span class="keyword">throws</span> <span class="class">SQLException</span> {
+                
+                <span class="class">String</span> sql = <span class="string">"UPDATE tasca SET estat_tasca = ?, data_creacio = ?, data_execucio = ? WHERE IdTasca = ?"</span>;
+                
+                <span class="keyword">try</span> (<span class="class">PreparedStatement</span> ordre = connection.<span class="method">prepareStatement</span>(sql)) {
+                    ordre.<span class="method">setString</span>(<span class="number">1</span>, nouEstatTasca);
+                    ordre.<span class="method">setString</span>(<span class="number">2</span>, novaDataCreacio);
+                    ordre.<span class="method">setString</span>(<span class="number">3</span>, novaDataExecucio);
+                    ordre.<span class="method">setInt</span>(<span class="number">4</span>, idTasca);
+            
+                    <span class="keyword">int</span> rowsUpdated = ordre.<span class="method">executeUpdate</span>();
+                    <span class="keyword">return</span> rowsUpdated > <span class="number">0</span>;
+            
+                } <span class="keyword">catch</span> (<span class="class">SQLException</span> e) {
+                    <span class="class">System</span>.err.<span class="method">println</span>(<span class="string">"Error en actualitzar la tasca a la BD: "</span> + e.<span class="method">getMessage</span>());
+                    <span class="keyword">return</span> <span class="keyword">false</span>;
+                }
+            }
+            </pre>
+        <p class="interlineat-ampliat2">Aquest mètode modificava l'estat de la tasca directament, sense tenir en compte
+            si tots els empleats l'havien
+            completat i així constava a la taula Realitza (taula que emmagatzema els empleats assignats a cada tasca i
+            registra si cadascun l'ha completat o no). <br>
+            Per tant, per molt que jo hagués fet correctament el mètode que comprovava correctamentt si tots els
+            empleats havien completat la tasca, aquest altre mètode
+            incorrectament formulat completava una tasca directament només amb que un empleat la marqués com a tal. <br>
+            Això ho vaig resoldre simplement deixant només la data d'execució subjecte a canvis.
+
+        </p>
+        <pre class="java-code">
             <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="method">editarTasca</span>(<span class="class">Connection</span> connection, <span class="keyword">int</span> idTasca, <span class="class">String</span> novaDataExecucio) <span class="keyword">throws</span> <span class="class">SQLException</span> {
+                <span class="comment">//Després d'efectuar els canvis mencionats així és com ha quedat el mètode </span>
                 <span class="class">String</span> sql = <span class="string">"UPDATE tasca SET data_execucio = ? WHERE IdTasca = ?"</span>;
                 <span class="keyword">try</span> (<span class="class">PreparedStatement</span> ordre = connection.<span class="method">prepareStatement</span>(sql)) {
                     ordre.<span class="method">setString</span>(<span class="number">1</span>, novaDataExecucio);
@@ -88,34 +130,28 @@
                 }
             }
             </pre>
-        <p>Aquest mètode, que ara mateix està correctament formulat perquè només modifica a la taula tascaa la data
-            prevista d'execució en cas que aquesta es canvïi,
-            modificava l'estat de la tasca, no només a la taula realitza amb un altre mètode, si no amb aquest. Llavors,
-            per molt que el mètode que actualitzés
-            a completada la tasca només si a la taula realitza estava completada a totes les files d'empleats que hi
-            havia assignats funcionés correctament,
-            ja aquest mètode del model actualitzava a completada la tasca en general. <br>
+        <p class="interlineat-ampliat2">
             També vaig adonar-me més endavant de que actualitzava la data de creació de la tasca en cas que es
-            modifiqués el camp, cosa que no té sentit lògicament, i per
-            veure com vaig resoldre també això anirem al punt següent.
+            modifiqués el camp, cosa que no té sentit lògicament, ja que una tasca es crea la data que s'ha creat i no
+            es pot modificar. <br>
+            Per veure com vaig resoldre també això anirem al punt següent.
         </p>
+        <br>
 
         <h2>Camp "data creació" de la Tasca de la que no es podia deshabilitar l'edició</h2>
-        <p>Un cop em vaig adonar que, com explico al punt anterior, havia habilitat l'edició de la data de creació de la
-            tasca
-            vaig intentar simplement desactivar el checkbox "editable" de l'element al scenebuilder per a que no es
-            pogués modificar.
+        <p class="interlineat-ampliat2">
+            Un cop em vaig adonar que, com explico al punt anterior, havia habilitat
+            l'edició de la data de creació de la tasca, vaig intentar simplement desactivar el checkbox "editable" de l'element al scenebuilder per
+            a que no es pogués modificar.
             D'aquesta manera la caixa de text de l'element DatePicker es desactivava, però el botó per escollir una data
-            amb el cursor
-            seguía estant habilitat. D'aquesta manera vaig optar per substituir un DatePicker per simplement un TextField
-            que passava la
-            data com a String en el format adequat.
+            amb el cursor seguía estant habilitat. D'aquesta manera vaig optar per substituir l'element DatePicker per un simple
+            TextField que mostra la data com a String en el format adequat.
         </p>
-        
+
         <div class="image-container">
-            <img src="../punts_index/imgs_errors/captura_data_textbox.png" alt="Captura data textbox">
+            <img src="../punts_index/imgs_errors/captura_data_textbox.png" alt="Captura data TextField">
         </div>
-        
+
         <pre class="java-code">
             <span class="comment">//Mètode per omplir els camps quan es selecciona una tasca</span>
             <span class="keyword">private</span> <span class="keyword">void</span> <span class="method">omplirCampsTascaSeleccionada</span>(<span class="class">Tasca</span> tascaSeleccionada) {
